@@ -11,7 +11,6 @@ class UserController extends Controller
     public function getMe()
     {
         if (Auth::check()) {
-//            return response()->json(["user" => Auth::user()], 200);
             return new UserResource(Auth::user());
         }
 
