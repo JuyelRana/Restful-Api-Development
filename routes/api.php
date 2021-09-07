@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Designs\{UploadController, DesignController};
 use App\Http\Controllers\Auth\{ForgotPasswordController,
     LoginController,
     RegisterController,
     ResetPasswordController,
-    VerificationController};
+    VerificationController
+};
 use App\Http\Controllers\User\{SettingsController, UserController};
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,11 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::put('settings/profile', [SettingsController::class, 'updateProfile'])->name('user.profile');
     Route::put('settings/password', [SettingsController::class, 'updatePassword'])->name('user.password');
+
+    // Upload Designs
+    Route::post('designs', [UploadController::class, 'upload'])->name('designs.upload');
+    Route::put('designs/{id}', [DesignController::class, 'update'])->name('designs.update');
+    Route::delete('designs/{id}', [DesignController::class, 'destroy'])->name('designs.delete');
 });
 
 

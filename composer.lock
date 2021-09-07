@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "53533ee058a869a197978968a5cf8e44",
+    "content-hash": "25d4ed895f35cb1c3bd3894d911e3ef5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -121,6 +121,76 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "cviebrock/eloquent-taggable",
+            "version": "8.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cviebrock/eloquent-taggable.git",
+                "reference": "9a0d8f9be96e653c6f8e900ba9cca7e6aa77f5c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cviebrock/eloquent-taggable/zipball/9a0d8f9be96e653c6f8e900ba9cca7e6aa77f5c3",
+                "reference": "9a0d8f9be96e653c6f8e900ba9cca7e6aa77f5c3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^8.0",
+                "illuminate/database": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "limedeck/phpunit-detailed-printer": "^6.0",
+                "orchestra/database": "^6.0",
+                "orchestra/testbench": "^6.5",
+                "phpunit/phpunit": "^9.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cviebrock\\EloquentTaggable\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cviebrock\\EloquentTaggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Viebrock",
+                    "email": "colin@viebrock.ca"
+                }
+            ],
+            "description": "Easy ability to tag your Eloquent models in Laravel 5.",
+            "homepage": "https://github.com/cviebrock/eloquent-taggable",
+            "keywords": [
+                "Taggable",
+                "eloquent",
+                "laravel",
+                "tag",
+                "tagging"
+            ],
+            "support": {
+                "issues": "https://github.com/cviebrock/eloquent-taggable/issues",
+                "source": "https://github.com/cviebrock/eloquent-taggable"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/cviebrock",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-03-31T00:54:32+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1039,6 +1109,90 @@
                 "source": "https://github.com/guzzle/psr7/tree/2.0.0"
             },
             "time": "2021-06-30T20:03:07+00:00"
+        },
+        {
+            "name": "intervention/image",
+            "version": "2.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "0925f10b259679b5d8ca58f3a2add9255ffcda45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/0925f10b259679b5d8ca58f3a2add9255ffcda45",
+                "reference": "0925f10b259679b5d8ca58f3a2add9255ffcda45",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1 || ^2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^7.5.15"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "Image": "Intervention\\Image\\Facades\\Image"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Image\\": "src/Intervention/Image"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.com",
+                    "homepage": "http://olivervogel.com/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "imagick",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "support": {
+                "issues": "https://github.com/Intervention/image/issues",
+                "source": "https://github.com/Intervention/image/tree/2.6.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/interventionphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Intervention",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-07-22T14:31:53+00:00"
         },
         {
             "name": "jmikola/geojson",
@@ -2032,16 +2186,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.52.0",
+            "version": "2.53.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "369c0e2737c56a0f39c946dd261855255a6fccbe"
+                "reference": "f4655858a784988f880c1b8c7feabbf02dfdf045"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/369c0e2737c56a0f39c946dd261855255a6fccbe",
-                "reference": "369c0e2737c56a0f39c946dd261855255a6fccbe",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/f4655858a784988f880c1b8c7feabbf02dfdf045",
+                "reference": "f4655858a784988f880c1b8c7feabbf02dfdf045",
                 "shasum": ""
             },
             "require": {
@@ -2053,7 +2207,7 @@
             },
             "require-dev": {
                 "doctrine/orm": "^2.7",
-                "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
                 "kylekatarnls/multi-tester": "^2.0",
                 "phpmd/phpmd": "^2.9",
                 "phpstan/extension-installer": "^1.0",
@@ -2122,7 +2276,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-14T19:10:52+00:00"
+            "time": "2021-09-06T09:29:23+00:00"
         },
         {
             "name": "nette/schema",
@@ -6129,21 +6283,21 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.15.0",
+            "version": "v1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e"
+                "reference": "271d384d216e5e5c468a6b28feedf95d49f83b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/89c6201c74db25fa759ff16e78a4d8f32547770e",
-                "reference": "89c6201c74db25fa759ff16e78a4d8f32547770e",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/271d384d216e5e5c468a6b28feedf95d49f83b35",
+                "reference": "271d384d216e5e5c468a6b28feedf95d49f83b35",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0",
-                "psr/container": "^1.0",
+                "psr/container": "^1.0 || ^2.0",
                 "symfony/deprecation-contracts": "^2.2"
             },
             "conflict": {
@@ -6163,7 +6317,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "v1.15-dev"
+                    "dev-main": "v1.16-dev"
                 }
             },
             "autoload": {
@@ -6188,9 +6342,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.15.0"
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.16.0"
             },
-            "time": "2021-07-06T20:39:40+00:00"
+            "time": "2021-09-06T14:53:37+00:00"
         },
         {
             "name": "filp/whoops",
