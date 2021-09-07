@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Designs\{UploadController, DesignController};
 use App\Http\Controllers\Auth\{ForgotPasswordController,
     LoginController,
@@ -32,6 +33,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('designs', [UploadController::class, 'upload'])->name('designs.upload');
     Route::put('designs/{id}', [DesignController::class, 'update'])->name('designs.update');
     Route::delete('designs/{id}', [DesignController::class, 'destroy'])->name('designs.delete');
+
+    // Likes and UnLikes
+    Route::post('designs/{id}/like', [DesignController::class, 'like'])->name('designs.like');
+    Route::get('designs/{id}/liked', [DesignController::class, 'checkIfUserHasLiked'])->name('designs.liked');
+
+
+    //Comments
+    Route::post('designs/{id}/comments', [CommentController::class, 'store'])->name('designs.comments.store');
+    Route::put('comments/{id}', [CommentController::class, 'update'])->name('designs.comments.update');
+    Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('designs.comments.delete');
 });
 
 

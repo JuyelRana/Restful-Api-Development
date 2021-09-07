@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Designs;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Design\DesignResource;
 use App\Repositories\Contracts\Design\IDesign;
-use App\Repositories\Eloquent\Criteria\{ForUser, IsLive, LatestFirst};
+use App\Repositories\Eloquent\Criteria\{EagerLoad, ForUser, IsLive, LatestFirst};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -24,7 +24,8 @@ class DesignController extends Controller
         $designs = $this->designs->withCriteria([
             new LatestFirst(),
             new IsLive(),
-            new ForUser(1)
+            new ForUser(1),
+            new EagerLoad(['user', 'comments'])
         ])->all();
 
         return DesignResource::collection($designs);
@@ -79,5 +80,18 @@ class DesignController extends Controller
         $this->designs->delete($id);
 
         return response()->json(['message' => 'Design deleted successfully'], 200);
+    }
+
+    public function like($id): \Illuminate\Http\JsonResponse
+    {
+        $this->designs->like($id);
+
+        return response()->json(['message' => 'Successful'], 200);
+    }
+
+    public function checkIfUserHasLiked($designId)
+    {
+        $isLiked = $this->designs->isLikedByUser($designId);
+        return response()->json(['liked' => $isLiked], 200);
     }
 }
