@@ -12,14 +12,21 @@ use Illuminate\Support\Facades\Route;
 
 
 // Public route
-Route::get('me', [UserController::class, 'getMe'])->name('user.me');
+Route::get('me', [UserController::class, 'getMe'])->name('users.me');
+
+// Get Designs
+Route::get('designs', [DesignController::class, 'index'])->name('designs.index');
+Route::get('designs/{id}', [DesignController::class, 'findDesignById'])->name('designs.findDesign');
+
+// Get users
+Route::get('users', [UserController::class, 'index'])->name('users.index');
 
 // Route group for authenticated users only
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::post('logout', [LoginController::class, 'logout'])->name('user.logout');
+    Route::post('logout', [LoginController::class, 'logout'])->name('users.logout');
 
-    Route::put('settings/profile', [SettingsController::class, 'updateProfile'])->name('user.profile');
-    Route::put('settings/password', [SettingsController::class, 'updatePassword'])->name('user.password');
+    Route::put('settings/profile', [SettingsController::class, 'updateProfile'])->name('users.profile');
+    Route::put('settings/password', [SettingsController::class, 'updatePassword'])->name('users.password');
 
     // Upload Designs
     Route::post('designs', [UploadController::class, 'upload'])->name('designs.upload');
@@ -30,8 +37,8 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 // Route for guests user only
 Route::group(['middleware' => ['guest:api']], function () {
-    Route::post('register', [RegisterController::class, 'register'])->name('user.register');
-    Route::post('login', [LoginController::class, 'login'])->name('user.login');
+    Route::post('register', [RegisterController::class, 'register'])->name('users.register');
+    Route::post('login', [LoginController::class, 'login'])->name('users.login');
     Route::post('verification/verify/{user}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('verification/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

@@ -4,16 +4,41 @@ namespace App\Http\Controllers\Designs;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Design\DesignResource;
-use App\Models\Design;
+use App\Repositories\Contracts\Design\IDesign;
+use App\Repositories\Eloquent\Criteria\{ForUser, IsLive, LatestFirst};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DesignController extends Controller
 {
-    public function update(Request $request, $id)
+    protected $designs;
+
+    public function __construct(IDesign $designs)
     {
-        $design = Design::findOrFail($id);
+        $this->designs = $designs;
+    }
+
+    public function index()
+    {
+        $designs = $this->designs->withCriteria([
+            new LatestFirst(),
+            new IsLive(),
+            new ForUser(1)
+        ])->all();
+
+        return DesignResource::collection($designs);
+    }
+
+    public function findDesignById($id): DesignResource
+    {
+        $design = $this->designs->find($id);
+        return new DesignResource($design);
+    }
+
+    public function update(Request $request, $id): DesignResource
+    {
+        $design = $this->designs->find($id);
 
         $this->authorize('update', $design);
 
@@ -23,7 +48,7 @@ class DesignController extends Controller
             'tags' => ['required']
         ]);
 
-        $design->update([
+        $design = $this->designs->update($id, [
             'title' => $request->title,
             'description' => $request->description,
             'slug' => Str::slug($request->title),
@@ -31,14 +56,15 @@ class DesignController extends Controller
         ]);
 
         // Apply the tags
-        $design->retag($request->tags);
+        $this->designs->applyTags($id, $request->tags);
 
         return new DesignResource($design);
     }
 
     public function destroy($id): \Illuminate\Http\JsonResponse
     {
-        $design = Design::findOrFail($id);
+        $design = $this->designs->find($id);
+
         $this->authorize('delete', $design);
 
         // Delete the files associated to the record
@@ -50,7 +76,7 @@ class DesignController extends Controller
         }
 
         // Now delete the design record also
-        $design->delete();
+        $this->designs->delete($id);
 
         return response()->json(['message' => 'Design deleted successfully'], 200);
     }
