@@ -12,4 +12,9 @@ class UserRepositories extends BaseRepository implements IUser
     {
         return User::class;
     }
+
+    public function findByEmail($email)
+    {
+        // TODO: Implement findByEmail() method.
+    }
 }

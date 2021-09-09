@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\User\IUser;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Hash, Validator};
 
 class RegisterController extends Controller
 {

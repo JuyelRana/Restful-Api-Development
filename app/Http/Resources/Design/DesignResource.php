@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Design;
 
 use App\Http\Resources\Comment\CommentResource;
+use App\Http\Resources\Team\TeamResource;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -37,8 +38,11 @@ class DesignResource extends JsonResource
                 'updated_at' => $this->updated_at
             ],
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'user' => new UserResource($this->whenLoaded('user'))
-
+            'user' => new UserResource($this->whenLoaded('user')),
+            'team' => $this->team ? [
+                'name' => $this->team->name,
+                'slug' => $this->team->slug
+            ] : null
         ];
     }
 }

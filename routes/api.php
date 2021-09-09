@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Comment\CommentController;
-use App\Http\Controllers\Designs\{UploadController, DesignController};
 use App\Http\Controllers\Auth\{ForgotPasswordController,
     LoginController,
     RegisterController,
     ResetPasswordController,
     VerificationController
 };
+use App\Http\Controllers\Comment\CommentController;
+use App\Http\Controllers\Designs\{DesignController, UploadController};
+use App\Http\Controllers\Team\{InvitationController, TeamController};
 use App\Http\Controllers\User\{SettingsController, UserController};
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ Route::get('designs/{id}', [DesignController::class, 'findDesignById'])->name('d
 
 // Get users
 Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+// Get team by slug
+Route::get('teams/slug/{slug}', [TeamController::class, 'findBySlug'])->name('teams.findBySlug');
 
 // Route group for authenticated users only
 Route::group(['middleware' => ['auth:api']], function () {
@@ -43,6 +47,18 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('designs/{id}/comments', [CommentController::class, 'store'])->name('designs.comments.store');
     Route::put('comments/{id}', [CommentController::class, 'update'])->name('designs.comments.update');
     Route::delete('comments/{id}', [CommentController::class, 'destroy'])->name('designs.comments.delete');
+
+    // Teams
+    Route::apiResource('teams', TeamController::class);
+    Route::get('users/teams', [TeamController::class, 'fetchUserTeams'])->name('users.teams');
+    Route::delete('teams/{id}/users/{user_id}', [TeamController::class, 'removeFromTeam'])->name('users.teams.remove');
+
+    // Invitations
+    Route::post('invitations/{teamId}', [InvitationController::class, 'invite'])->name('invitations.invite');
+    Route::post('invitations/{id}/resend', [InvitationController::class, 'resend'])->name('invitations.resend');
+    Route::post('invitations/{id}/respond', [InvitationController::class, 'respond'])->name('invitations.respond');
+    Route::delete('invitations/{id}', [InvitationController::class, 'destroy'])->name('invitations.delete');
+
 });
 
 
@@ -54,6 +70,4 @@ Route::group(['middleware' => ['guest:api']], function () {
     Route::post('verification/resend', [VerificationController::class, 'resend'])->name('verification.resend');
     Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
-
-
 });

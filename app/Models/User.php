@@ -4,14 +4,14 @@ namespace App\Models;
 
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
@@ -57,6 +57,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @var mixed
+     */
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
@@ -96,5 +99,27 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    // Teams that the user belongs to
+    public function teams(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Team::class)->withTimestamps();
+    }
+
+    public function ownedTeams(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->teams->where('owner_id', $this->id);
+    }
+
+    public function isOwnerOfTeam($team): bool
+    {
+        return (bool)$this->teams->where('id', $team->id)->where('owner_id', $this->id)->count();
+    }
+
+    // Relationships for invitations
+    public function invitations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Invitation::class, 'recipient_email', 'email');
     }
 }
