@@ -6,7 +6,7 @@ use App\Models\Invitation;
 use App\Repositories\Contracts\Invitation\IInvitation;
 use App\Repositories\Eloquent\BaseRepository;
 
-class InvitationRepositories extends BaseRepository implements IInvitation
+class InvitationRepository extends BaseRepository implements IInvitation
 {
     public function model(): string
     {

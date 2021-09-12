@@ -7,7 +7,7 @@ use App\Repositories\Contracts\Design\IDesign;
 use App\Repositories\Eloquent\BaseRepository;
 use Illuminate\Support\Facades\Auth;
 
-class DesignRepositories extends BaseRepository implements IDesign
+class DesignRepository extends BaseRepository implements IDesign
 {
     public function model(): string
     {

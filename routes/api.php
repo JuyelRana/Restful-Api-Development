@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Auth\{ForgotPasswordController,
     LoginController,
     RegisterController,
@@ -58,6 +59,13 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('invitations/{id}/resend', [InvitationController::class, 'resend'])->name('invitations.resend');
     Route::post('invitations/{id}/respond', [InvitationController::class, 'respond'])->name('invitations.respond');
     Route::delete('invitations/{id}', [InvitationController::class, 'destroy'])->name('invitations.delete');
+
+    // Chats
+    Route::post('chats', [ChatController::class, 'sendMessage'])->name('chats.sendMessage');
+    Route::get('chats', [ChatController::class, 'getUserChats'])->name('chats.getUserChats');
+    Route::get('chats/{id}/messages', [ChatController::class, 'getChatMessages'])->name('chats.getChatMessages');
+    Route::put('chats/{id}/markedAsRead', [ChatController::class, 'markedAsRead'])->name('chats.markedAsRead');
+    Route::delete('messages/{id}', [ChatController::class, 'destroyMessage'])->name('chats.destroyMessages');
 
 });
 

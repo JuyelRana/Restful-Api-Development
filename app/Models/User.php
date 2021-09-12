@@ -122,4 +122,23 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(Invitation::class, 'recipient_email', 'email');
     }
+
+    // Relationships for chat messaging
+    public function chats(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Chat::class, 'participants');
+    }
+
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function getChatWithUser($user_id)
+    {
+        return $this->chats()->whereHas('participants', function ($query) use ($user_id) {
+            $query->where('user_id', $user_id);
+        })->first();
+    }
+
 }

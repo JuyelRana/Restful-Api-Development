@@ -7,7 +7,7 @@ use App\Repositories\Contracts\Team\ITeam;
 use App\Repositories\Eloquent\BaseRepository;
 use Illuminate\Support\Facades\Auth;
 
-class TeamRepositories extends BaseRepository implements ITeam
+class TeamRepository extends BaseRepository implements ITeam
 {
 
     public function model(): string

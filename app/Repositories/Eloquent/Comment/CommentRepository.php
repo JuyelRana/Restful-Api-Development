@@ -6,7 +6,7 @@ use App\Models\Comment;
 use App\Repositories\Contracts\Comment\IComment;
 use App\Repositories\Eloquent\BaseRepository;
 
-class CommentRepositories extends BaseRepository implements IComment
+class CommentRepository extends BaseRepository implements IComment
 {
     public function model(): string
     {
