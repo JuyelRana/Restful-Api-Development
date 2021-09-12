@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UploadController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function upload(Request $request)
     {
         // Validate the request

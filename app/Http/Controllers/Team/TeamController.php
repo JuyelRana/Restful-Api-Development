@@ -19,6 +19,11 @@ class TeamController extends Controller
     protected $users;
     protected $invitations;
 
+    /**
+     * @param ITeam $teams
+     * @param IUser $users
+     * @param IInvitation $invitations
+     */
     public function __construct(ITeam $teams, IUser $users, IInvitation $invitations)
     {
         $this->teams = $teams;

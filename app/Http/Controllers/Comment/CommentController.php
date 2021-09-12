@@ -13,12 +13,22 @@ class CommentController extends Controller
 {
     protected $comments, $designs;
 
+    /**
+     * @param IComment $comments
+     * @param IDesign $designs
+     */
     public function __construct(IComment $comments, IDesign $designs)
     {
         $this->comments = $comments;
         $this->designs = $designs;
     }
 
+    /**
+     * @param Request $request
+     * @param $designId
+     * @return CommentResource
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request, $designId)
     {
         $this->validate($request, [
@@ -34,6 +44,13 @@ class CommentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return CommentResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Request $request, $id)
     {
         $comment = $this->comments->find($id);
@@ -51,6 +68,11 @@ class CommentController extends Controller
         return new CommentResource($comment);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy($id)
     {
         $comment = $this->comments->find($id);

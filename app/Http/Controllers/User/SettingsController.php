@@ -15,11 +15,19 @@ class SettingsController extends Controller
 {
     protected $users;
 
+    /**
+     * @param IUser $users
+     */
     public function __construct(IUser $users)
     {
         $this->users = $users;
     }
 
+    /**
+     * @param Request $request
+     * @return UserResource
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function updateProfile(Request $request): UserResource
     {
         $user = Auth::user();
@@ -48,6 +56,11 @@ class SettingsController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function updatePassword(Request $request): \Illuminate\Http\JsonResponse
     {
         $this->validate($request, [

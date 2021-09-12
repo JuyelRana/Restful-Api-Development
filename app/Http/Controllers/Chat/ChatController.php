@@ -15,6 +15,10 @@ class ChatController extends Controller
 {
     protected $chats, $messages;
 
+    /**
+     * @param IChat $chats
+     * @param IMessage $messages
+     */
     public function __construct(IChat $chats, IMessage $messages)
     {
         $this->chats = $chats;

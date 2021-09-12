@@ -8,6 +8,9 @@ use App\Repositories\Eloquent\BaseRepository;
 
 class MessageRepository extends BaseRepository implements IMessage
 {
+    /**
+     * @return string
+     */
     public function model(): string
     {
         return Message::class;

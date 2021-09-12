@@ -2,6 +2,9 @@
 
 namespace App\Repositories\Contracts\Design;
 
+
+use Illuminate\Http\Request;
+
 interface IDesign
 {
     public function applyTags($id, array $data);
@@ -11,4 +14,6 @@ interface IDesign
     public function like($id);
 
     public function isLikedByUser($id);
+
+    public function search(Request $request);
 }

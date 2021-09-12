@@ -14,6 +14,10 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    /**
+     * @param Request $request
+     * @return bool
+     */
     public function attemptLogin(Request $request): bool
     {
         // Attempt to issue a token to the user based on the login credentials
@@ -35,6 +39,10 @@ class LoginController extends Controller
         return true;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     protected function sendLoginResponse(Request $request): \Illuminate\Http\JsonResponse
     {
         // Clear login attempts
@@ -53,6 +61,11 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ValidationException
+     */
     protected function sendFailedLoginResponse(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $this->guard()->user();
@@ -70,6 +83,9 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(): \Illuminate\Http\JsonResponse
     {
         $this->guard()->logout();

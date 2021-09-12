@@ -8,6 +8,9 @@ use App\Repositories\Eloquent\BaseRepository;
 
 class CommentRepository extends BaseRepository implements IComment
 {
+    /**
+     * @return string
+     */
     public function model(): string
     {
         return Comment::class;

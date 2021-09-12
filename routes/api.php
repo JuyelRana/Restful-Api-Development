@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Auth\{ForgotPasswordController,
     LoginController,
     RegisterController,
     ResetPasswordController,
     VerificationController
 };
+use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Designs\{DesignController, UploadController};
 use App\Http\Controllers\Team\{InvitationController, TeamController};
@@ -26,6 +26,10 @@ Route::get('users', [UserController::class, 'index'])->name('users.index');
 
 // Get team by slug
 Route::get('teams/slug/{slug}', [TeamController::class, 'findBySlug'])->name('teams.findBySlug');
+
+// Search Designs
+Route::get('search/designs', [DesignController::class, 'search'])->name('designs.search');
+Route::get('search/designers', [UserController::class, 'search'])->name('users.search');
 
 // Route group for authenticated users only
 Route::group(['middleware' => ['auth:api']], function () {

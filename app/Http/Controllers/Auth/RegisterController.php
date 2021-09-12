@@ -12,6 +12,9 @@ class RegisterController extends Controller
 {
     protected $users;
 
+    /**
+     * @param IUser $users
+     */
     public function __construct(IUser $users)
     {
         $this->users = $users;
@@ -19,6 +22,11 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    /**
+     * @param Request $request
+     * @param $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     protected function registered(Request $request, $user): \Illuminate\Http\JsonResponse
     {
         return response()->json($user, 200);
@@ -41,6 +49,10 @@ class RegisterController extends Controller
     }
 
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     protected function create(array $data)
     {
         return $this->users->create([

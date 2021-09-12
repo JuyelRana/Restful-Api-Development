@@ -12,44 +12,74 @@ abstract class BaseRepository implements IBase, ICriteria
     protected $model;
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws ModelNotDefinedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
         $this->model = $this->getModelClass();
     }
 
+    /**
+     * @return mixed
+     */
     public function all()
     {
         return $this->model->get();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         return $this->model->findOrFail($id);
     }
 
+    /**
+     * @param $column
+     * @param $value
+     * @return mixed
+     */
     public function findWhere($column, $value)
     {
         return $this->model->where($column, $value)->get();
     }
 
+    /**
+     * @param $column
+     * @param $value
+     * @return mixed
+     */
     public function findWhereFirst($column, $value)
     {
         return $this->model->where($column, $value)->firstOrFail();
     }
 
+    /**
+     * @param int $perPage
+     * @return mixed
+     */
     public function paginate($perPage = 10)
     {
         return $this->model->paginate($perPage);
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     public function create(array $data)
     {
         return $this->model->create($data);
     }
 
+    /**
+     * @param $id
+     * @param array $data
+     * @return mixed
+     */
     public function update($id, array $data)
     {
         $record = $this->find($id);
@@ -57,13 +87,21 @@ abstract class BaseRepository implements IBase, ICriteria
         return $record;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function delete($id)
     {
         $record = $this->find($id);
         return $record->delete();
     }
 
-    public function withCriteria(...$criteria)
+    /**
+     * @param ...$criteria
+     * @return $this
+     */
+    public function withCriteria(...$criteria): BaseRepository
     {
         $criteria = Arr::flatten($criteria);
 

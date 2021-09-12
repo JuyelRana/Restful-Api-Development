@@ -156,6 +156,11 @@ class InvitationController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy($id): \Illuminate\Http\JsonResponse
     {
         $this->authorize('delete', $this->invitations->find($id));

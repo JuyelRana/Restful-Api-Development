@@ -14,11 +14,17 @@ class DesignController extends Controller
 {
     protected $designs;
 
+    /**
+     * @param IDesign $designs
+     */
     public function __construct(IDesign $designs)
     {
         $this->designs = $designs;
     }
 
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index()
     {
         $designs = $this->designs->withCriteria([
@@ -31,12 +37,23 @@ class DesignController extends Controller
         return DesignResource::collection($designs);
     }
 
+    /**
+     * @param $id
+     * @return DesignResource
+     */
     public function findDesignById($id): DesignResource
     {
         $design = $this->designs->find($id);
         return new DesignResource($design);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return DesignResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(Request $request, $id): DesignResource
     {
         $design = $this->designs->find($id);
@@ -64,6 +81,11 @@ class DesignController extends Controller
         return new DesignResource($design);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy($id): \Illuminate\Http\JsonResponse
     {
         $design = $this->designs->find($id);
@@ -84,6 +106,10 @@ class DesignController extends Controller
         return response()->json(['message' => 'Design deleted successfully'], 200);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like($id): \Illuminate\Http\JsonResponse
     {
         $this->designs->like($id);
@@ -91,9 +117,20 @@ class DesignController extends Controller
         return response()->json(['message' => 'Successful'], 200);
     }
 
+    /**
+     * @param $designId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function checkIfUserHasLiked($designId)
     {
         $isLiked = $this->designs->isLikedByUser($designId);
         return response()->json(['liked' => $isLiked], 200);
+    }
+
+    public function search(Request $request)
+    {
+        $designs = $this->designs->search($request);
+
+        return DesignResource::collection($designs);
     }
 }

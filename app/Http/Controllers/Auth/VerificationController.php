@@ -25,6 +25,11 @@ class VerificationController extends Controller
         $this->users = $users;
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function verify(Request $request, User $user): \Illuminate\Http\JsonResponse
     {
         // Check if the url is a valid signed url
@@ -52,6 +57,11 @@ class VerificationController extends Controller
         return response()->json(['message' => 'Email successfully verified'], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function resend(Request $request): \Illuminate\Http\JsonResponse
     {
         $this->validate($request, [
