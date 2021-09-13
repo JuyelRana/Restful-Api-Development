@@ -127,9 +127,46 @@ class DesignController extends Controller
         return response()->json(['liked' => $isLiked], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function search(Request $request)
     {
         $designs = $this->designs->search($request);
+
+        return DesignResource::collection($designs);
+    }
+
+    /**
+     * @param $slug
+     * @return DesignResource
+     */
+    public function findBySlug($slug): DesignResource
+    {
+        $design = $this->designs->withCriteria([new IsLive()])->findWhereFirst('slug', $slug);
+
+        return new DesignResource($design);
+    }
+
+    /**
+     * @param $teamId
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getForTeam($teamId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $designs = $this->designs->withCriteria([new IsLive()])->findWhere('team_id', $teamId);
+
+        return DesignResource::collection($designs);
+    }
+
+    /**
+     * @param $userId
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getForUser($userId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $designs = $this->designs->withCriteria([new IsLive()])->findWhere('user_id', $userId);
 
         return DesignResource::collection($designs);
     }

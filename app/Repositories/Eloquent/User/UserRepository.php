@@ -26,7 +26,6 @@ class UserRepository extends BaseRepository implements IUser
         return $this->model->where('email', $email)->first();
     }
 
-
     /**
      * @param Request $request
      * @return mixed

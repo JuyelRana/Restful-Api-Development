@@ -20,12 +20,16 @@ Route::get('me', [UserController::class, 'getMe'])->name('users.me');
 // Get Designs
 Route::get('designs', [DesignController::class, 'index'])->name('designs.index');
 Route::get('designs/{id}', [DesignController::class, 'findDesignById'])->name('designs.findDesign');
+Route::get('designs/slug/{slug}', [DesignController::class, 'findBySlug'])->name('designs.findBySlug');
 
 // Get users
 Route::get('users', [UserController::class, 'index'])->name('users.index');
+Route::get('user/{username}', [UserController::class, 'findByUsername'])->name('users.findByUsername');
+Route::get('users/{id}/designs', [DesignController::class, 'getForUser'])->name('users.designs.getForUser');
 
 // Get team by slug
 Route::get('teams/slug/{slug}', [TeamController::class, 'findBySlug'])->name('teams.findBySlug');
+Route::get('teams/{id}/designs', [DesignController::class, 'getForTeam'])->name('teams.getForTeam');
 
 // Search Designs
 Route::get('search/designs', [DesignController::class, 'search'])->name('designs.search');
