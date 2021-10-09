@@ -1,5 +1,6 @@
 <?php
 
+use App\Test\Facades\TestFacades;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/facadeex', function () {
+    return TestFacades::testingFacades();
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,3 +25,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
